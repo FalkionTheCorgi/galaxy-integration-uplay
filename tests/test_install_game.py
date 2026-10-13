@@ -65,7 +65,7 @@ if sys.platform == 'win32':
             loop.run_until_complete(pg.install_game("321"))
             pop.assert_not_called()
 
-        pg.launch_game.asert_called()
+        pg.launch_game.assert_called()
 
 
     def test_install_game_empty_collection(create_authenticated_plugin):

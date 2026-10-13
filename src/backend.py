@@ -104,7 +104,7 @@ class BackendClient():
     async def _do_options_request(self):
         await self._do_request('options', "https://public-ubiservices.ubi.com/v3/profiles/sessions", headers={
             "Origin": "https://connect.ubisoft.com",
-            "Referer": "https://connect.ubisoft.com/login?appId=314d4fef-e568-454a-ae06-43e3bece12a6",
+            "Referer": f"https://connect.ubisoft.com/login?appId={CLUB_APPID}",
             "User-Agent": CHROME_USERAGENT,
         })
 
@@ -273,8 +273,8 @@ class BackendClient():
         }
         payload = json.dumps(payload)
         headers = {'Content-Type': 'application/json'}
-        return await self._do_request_safe('post', "https://public-ubiservices.ubi.com/v1/profiles/me/uplay/graphql",
-                                           add_to_headers=headers, data=payload)
+        return await self._do_request('post', "https://public-ubiservices.ubi.com/v1/profiles/me/uplay/graphql",
+                          add_to_headers=headers, data=payload)
 
     async def get_game_stats(self, space_id):
         url = f"https://public-ubiservices.ubi.com/v1/profiles/{self.user_id}/statscard?spaceId={space_id}"

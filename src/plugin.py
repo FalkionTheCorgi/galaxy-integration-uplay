@@ -34,6 +34,19 @@ if SYSTEM == System.WINDOWS:
     import ctypes
 
 
+def _parse_auth_storage_jsons(end_uri):
+    decoded_uri = unquote(end_uri)
+    json_starts = [position for position in (decoded_uri.find("{"), decoded_uri.find("[")) if position >= 0]
+    if not json_starts:
+        raise UnknownBackendResponse()
+
+    payload = decoded_uri[min(json_starts):]
+    storage_jsons = json.loads(payload if payload.startswith("[") else "[" + payload + "]")
+    if not isinstance(storage_jsons, list) or not all(isinstance(value, dict) for value in storage_jsons):
+        raise UnknownBackendResponse()
+    return storage_jsons
+
+
 class UplayPlugin(Plugin):
     def __init__(self, reader, writer, token):
         super().__init__(Platform.Uplay, __version__, reader, writer, token)
@@ -72,9 +85,7 @@ class UplayPlugin(Plugin):
 
     async def pass_login_credentials(self, step, credentials, cookies):
         """Called just after CEF authentication (called as NextStep by authenticate)"""
-        url = credentials["end_uri"][len("https://connect.ubisoft.com/change_domain/"):]
-        unquoted_url = unquote(url)
-        storage_jsons = json.loads("[" + unquoted_url + "]")
+        storage_jsons = _parse_auth_storage_jsons(credentials["end_uri"])
         user_data = await self.client.authorise_with_local_storage(storage_jsons)
         self.local_client.initialize(user_data['userId'])
         self.client.set_auth_lost_callback(self.auth_lost)

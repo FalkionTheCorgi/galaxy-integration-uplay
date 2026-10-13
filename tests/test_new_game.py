@@ -1,5 +1,4 @@
 import asyncio
-import unittest.mock as mock
 
 from tests.conftest import NewGame
 
@@ -9,8 +8,6 @@ def test_new_game_owned(create_authenticated_plugin):
     pg = create_authenticated_plugin()
 
     new_game = NewGame()
-
-    pg.add_game = mock.create_autospec(pg.add_game)
 
     loop.run_until_complete(pg._add_new_games([new_game]))
 

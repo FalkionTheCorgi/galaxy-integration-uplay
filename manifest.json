@@ -1,0 +1,12 @@
+{
+    "name": "Ubisoft Connect",
+    "platform": "uplay",
+    "guid": "db8d150e-b598-42c0-97bb-8cef634e78d3",
+    "version": "0.55.5",
+    "description": "Ubisoft Connect integration for GOG GALAXY",
+    "author": "FalkionTheCorgi",
+    "email": "",
+    "url": "https://github.com/FalkionTheCorgi/galaxy-integration-uplay",
+    "script": "plugin.py",
+    "python_version": "3.13"
+}

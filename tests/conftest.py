@@ -25,6 +25,19 @@ class NewGame(object):
     considered_for_sending: bool = False
     status: str = "NotInstalled"
 
+
+@pytest.fixture(autouse=True)
+def legacy_event_loop():
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
+    yield
+
+    if not loop.is_closed():
+        loop.close()
+    asyncio.set_event_loop(None)
+
+
 @pytest.fixture()
 def local_client():
     mock = MagicMock()
