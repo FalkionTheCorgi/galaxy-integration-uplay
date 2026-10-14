@@ -1,6 +1,10 @@
-__version__ = '0.55.5'
+__version__ = '0.55.6'
 
 __changelog__ = {
+    "0.55.6": """
+        - modernize Ubisoft Connect authentication and API compatibility
+        - update dependencies and add regression coverage
+    """,
     "0.55.5": """
         - fix parsing club games during fetching owned games; extend logging for unparsable items
     """,

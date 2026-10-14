@@ -2,7 +2,7 @@
     "name": "Ubisoft Connect",
     "platform": "uplay",
     "guid": "db8d150e-b598-42c0-97bb-8cef634e78d3",
-    "version": "0.55.5",
+    "version": "0.55.6",
     "description": "Ubisoft Connect integration for GOG GALAXY",
     "author": "FalkionTheCorgi",
     "email": "",
